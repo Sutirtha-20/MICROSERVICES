@@ -4,6 +4,7 @@ import com.user_service.user_service.entity.Hotel;
 import com.user_service.user_service.entity.Rating;
 import com.user_service.user_service.entity.User;
 import com.user_service.user_service.exception.ResourceNotFoundException;
+import com.user_service.user_service.external.service.HotelService;
 import com.user_service.user_service.repository.UserRepository;
 import com.user_service.user_service.services.UserService;
 import org.slf4j.Logger;
@@ -27,6 +28,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private HotelService hotelService;
 
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     @Override
@@ -54,9 +57,10 @@ public class UserServiceImpl implements UserService {
         List<Rating> ratingList = ratings.stream().map(rating -> {
             //api call to hotel service
             //localhost:8082/hotels/e60c01d5-c099-4e01-b1af-29fb93e1e129
-            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/"+rating.getHotelId(), Hotel.class);
-            Hotel hotel = forEntity.getBody();
-            logger.info("response status code"+forEntity.getStatusCode());
+//            ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTEL-SERVICE/hotels/"+rating.getHotelId(), Hotel.class);
+//            Hotel hotel = forEntity.getBody();
+            Hotel hotel = hotelService.getHotel(rating.getHotelId());
+//            logger.info("response status code"+forEntity.getStatusCode());
             //set the hotel to rating array
             rating.setHotel(hotel);
             //return rating
