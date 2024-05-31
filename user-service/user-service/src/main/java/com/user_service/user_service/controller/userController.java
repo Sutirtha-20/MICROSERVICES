@@ -16,7 +16,7 @@ public class userController {
     private UserService userService;
 
     //create
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user){
         User user1 = userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user1);
@@ -30,7 +30,7 @@ public class userController {
     }
 
     //all user get
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<User>> getAllUser(){
         List<User> userList = userService.getAllUser();
         return ResponseEntity.status(HttpStatus.OK).body(userList);
