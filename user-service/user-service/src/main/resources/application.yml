@@ -9,8 +9,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: USER-SERVICE
+  config:
+    import: optional:configserver:http://localhost:8085
+
+#  profile:
+#    active: dev
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
