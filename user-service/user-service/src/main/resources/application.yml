@@ -50,7 +50,7 @@ management:
     health:
       show-details: always
 
-#resiliance 4j config
+#resiliance 4j circuitbreaker config
 resilience4j:
   circuitbreaker:
     instances:
@@ -64,3 +64,20 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 3
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
+
+
+#Retry module config
+  retry:
+    instances:
+      ratingHotelService:
+        max-attempts: 3
+        wait-duration: 5s
+
+
+#Rate Limiter module config
+  ratelimiter:
+    instances:
+      userRateLimiter:
+        limit-refresh-period: 4s
+        limit-for-period: 2
+        timeout-duration: 2s
