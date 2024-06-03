@@ -12,13 +12,34 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/users/**
+          filters:
+            - AuthenticationFilter
 
         - id: HOTEL-SERVICE
           uri: lb://HOTEL-SERVICE
           predicates:
             - Path=/hotels/**,/staffs/**
+          filters:
+            - AuthenticationFilter
 
         - id: RATING-SERVICE
           uri: lb://RATING-SERVICE
           predicates:
             - Path=/ratings/**
+          filters:
+            - AuthenticationFilter
+
+        - id: IDENTITY-SERVICE
+          uri: lb://IDENTITY-SERVICE
+          predicates:
+            - Path=/auth/**
+
+
+#OKTA config for APIGATEWAY
+#okta:
+#  oauth2:
+#    issuer: https://dev-44175976.okta.com/oauth2/default
+#    audience: api://default
+#    client-id: 0oahh6k3h3VUAtU1m5d7
+#    client-secret: HLV1o84j3FR3_9SX_9WdiQJNQC1gfi5h9pwDi9eU8bgS_CObdhL_bL4vmEx2Fm6p
+#    scopes: openid, profile, email, offline_access
